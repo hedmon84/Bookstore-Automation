@@ -1,0 +1,540 @@
+{
+	"info": {
+		"_postman_id": "a68418d1-d552-45d0-9ac9-8d4713a45d8b",
+		"name": "Book Store API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "API Status",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\",  () => {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"console.log(responseHeaders)\r",
+							"pm.test(\"Response Header\", () => {\r",
+							"    pm.expect(request.headers[\"host\"]).to.equal(\"demoqa.com\")\r",
+							"    pm.expect(request.headers[\"accept\"]).to.equal(\"*/*\")\r",
+							"    pm.expect(request.headers[\"accept-encoding\"]).to.equal(\"gzip, deflate, br\")\r",
+							"\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BaseUrl}}/status/",
+					"host": [
+						"{{BaseUrl}}"
+					],
+					"path": [
+						"status",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\",  () => {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"User Creaded \",  () => {\r",
+							"    pm.response.to.have.status(\"Created\");\r",
+							"});\r",
+							"\r",
+							"\r",
+							"// console.log(responseHeaders)\r",
+							"pm.test(\"Response Header\", () => {\r",
+							"    pm.expect(request.headers[\"content-type\"]).to.equal(\"application/json\")\r",
+							"    pm.expect(request.headers[\"host\"]).to.equal(\"demoqa.com\")\r",
+							"    pm.expect(request.headers[\"accept\"]).to.equal(\"*/*\")\r",
+							"    pm.expect(request.headers[\"accept-encoding\"]).to.equal(\"gzip, deflate, br\")\r",
+							"\r",
+							"})\r",
+							"\r",
+							"// set global variables for user account\r",
+							"const response = pm.response.json();\r",
+							"pm.globals.set(\"userID\", response.userID);\r",
+							"pm.globals.set(\"username\", response.username);\r",
+							"pm.globals.set(\"password\", \"Hdmon100*\");\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"userName\": \"{{$randomUserName}}\",\r\n  \"password\": \"Hdmon100*\"\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseUrl}}/Account/v1/User",
+					"host": [
+						"{{BaseUrl}}"
+					],
+					"path": [
+						"Account",
+						"v1",
+						"User"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GenerateToken",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\",  () => {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"const response = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Authorization Success\",  () => {\r",
+							"   pm.expect(response.status).to.equal(\"Success\")\r",
+							"});\r",
+							"pm.test(\"Response Header\", () => {\r",
+							"    pm.expect(request.headers[\"host\"]).to.equal(\"demoqa.com\")\r",
+							"    pm.expect(request.headers[\"accept\"]).to.equal(\"*/*\")\r",
+							"    pm.expect(request.headers[\"accept-encoding\"]).to.equal(\"gzip, deflate, br\")\r",
+							"\r",
+							"})\r",
+							"\r",
+							"// set global variables for authorization token\r",
+							"\r",
+							"pm.globals.set(\"authorization-token\", response.token);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"userName\": \"{{username}}\",\r\n  \"password\": \"{{password}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseUrl}}/Account/v1/GenerateToken",
+					"host": [
+						"{{BaseUrl}}"
+					],
+					"path": [
+						"Account",
+						"v1",
+						"GenerateToken"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Authorized User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\",  () => {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"const response = pm.response.json();\r",
+							"pm.test(\"Response Header\", () => {\r",
+							"    pm.expect(request.headers[\"host\"]).to.equal(\"demoqa.com\")\r",
+							"    pm.expect(request.headers[\"accept\"]).to.equal(\"*/*\")\r",
+							"    pm.expect(request.headers[\"accept-encoding\"]).to.equal(\"gzip, deflate, br\")\r",
+							"\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Authorization success \",  () => {\r",
+							"     pm.expect(response).to.equal(true)\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"userName\": \"{{username}}\",\r\n  \"password\": \"{{password}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseUrl}}/Account/v1/Authorized",
+					"host": [
+						"{{BaseUrl}}"
+					],
+					"path": [
+						"Account",
+						"v1",
+						"Authorized"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all Books",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\",  () => {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response Header\", () => {\r",
+							"    pm.expect(request.headers[\"host\"]).to.equal(\"demoqa.com\")\r",
+							"    pm.expect(request.headers[\"accept\"]).to.equal(\"*/*\")\r",
+							"    pm.expect(request.headers[\"accept-encoding\"]).to.equal(\"gzip, deflate, br\")\r",
+							"\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BaseUrl}}/BookStore/v1/Books",
+					"host": [
+						"{{BaseUrl}}"
+					],
+					"path": [
+						"BookStore",
+						"v1",
+						"Books"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Book",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\",  () => {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response Header\", () => {\r",
+							"    pm.expect(request.headers[\"host\"]).to.equal(\"demoqa.com\")\r",
+							"    pm.expect(request.headers[\"accept\"]).to.equal(\"*/*\")\r",
+							"    pm.expect(request.headers[\"accept-encoding\"]).to.equal(\"gzip, deflate, br\")\r",
+							"\r",
+							"})\r",
+							"const response = pm.response.json();\r",
+							"\r",
+							"\r",
+							"if ( response.code === \"1210\") {\r",
+							"    pm.test(\"Book is already added message \",  () => {\r",
+							"         pm.expect(response.message).to.equal(\"ISBN already present in the User's Collection!\")\r",
+							"    \r",
+							"});\r",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{authorization-token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"userId\": \"{{userID}}\",\r\n  \"collectionOfIsbns\": [\r\n    {\r\n      \"isbn\": \"9781449325862\"\r\n    }\r\n  ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseUrl}}/BookStore/v1/Books",
+					"host": [
+						"{{BaseUrl}}"
+					],
+					"path": [
+						"BookStore",
+						"v1",
+						"Books"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\",  () => {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"const response = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Username and UserId match \",  () => {\r",
+							"     pm.expect(response.books[0]).to.be.an('object');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response Header\", () => {\r",
+							"    pm.expect(request.headers[\"host\"]).to.equal(\"demoqa.com\")\r",
+							"    pm.expect(request.headers[\"accept\"]).to.equal(\"*/*\")\r",
+							"    pm.expect(request.headers[\"accept-encoding\"]).to.equal(\"gzip, deflate, br\")\r",
+							"\r",
+							"})\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{authorization-token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BaseUrl}}/Account/v1/User/{{userID}}",
+					"host": [
+						"{{BaseUrl}}"
+					],
+					"path": [
+						"Account",
+						"v1",
+						"User",
+						"{{userID}}"
+					],
+					"query": [
+						{
+							"key": "UUID",
+							"value": "f2da090b-9bb7-42dc-9837-efb746c279d4\n",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Remove Book",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 204\",  () => {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response Header\", () => {\r",
+							"    pm.expect(request.headers[\"host\"]).to.equal(\"demoqa.com\")\r",
+							"    pm.expect(request.headers[\"accept\"]).to.equal(\"*/*\")\r",
+							"    pm.expect(request.headers[\"accept-encoding\"]).to.equal(\"gzip, deflate, br\")\r",
+							"\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{authorization-token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{BaseUrl}}/BookStore/v1/Books?UserId={{userID}}",
+					"host": [
+						"{{BaseUrl}}"
+					],
+					"path": [
+						"BookStore",
+						"v1",
+						"Books"
+					],
+					"query": [
+						{
+							"key": "UserId",
+							"value": "{{userID}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Remove User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 204\",  () => {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response Header\", () => {\r",
+							"    pm.expect(request.headers[\"host\"]).to.equal(\"demoqa.com\")\r",
+							"    pm.expect(request.headers[\"accept\"]).to.equal(\"*/*\")\r",
+							"    pm.expect(request.headers[\"accept-encoding\"]).to.equal(\"gzip, deflate, br\")\r",
+							"\r",
+							"})\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{authorization-token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{BaseUrl}}/Account/v1/User/{{userID}}",
+					"host": [
+						"{{BaseUrl}}"
+					],
+					"path": [
+						"Account",
+						"v1",
+						"User",
+						"{{userID}}"
+					],
+					"query": [
+						{
+							"key": "UUID",
+							"value": "f2da090b-9bb7-42dc-9837-efb746c279d4\n",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "BaseUrl",
+			"value": "https://demoqa.com",
+			"type": "string"
+		},
+		{
+			"key": "AuthorizationToken",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6ImhlZG1vbjEwMCIsInBhc3N3b3JkIjoiSGRtb24xMDAqIiwiaWF0IjoxNjQ5NjM5OTY0fQ.LeZx_rDjan2OQNSNOjAJDFpkHTuwIaCBR00ZqGFYH7U",
+			"type": "string"
+		}
+	]
+}
