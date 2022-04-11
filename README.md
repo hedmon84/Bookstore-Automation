@@ -1,5 +1,5 @@
 This repository is for the Hello-Iconic QA recruiting challenge
-# 1 Challenge Description
+# Challenge 1 Description
 Using this site: https://demoqa.com/ you will be focusing on the Book store application section. Within that
 section you will find 3 features: Login, Bookstore, Profile. For each feature identify at least 3 scenarios,
 then create the test case for those scenarios and finally automate them to run in Chrome, Firefox.
@@ -20,7 +20,7 @@ then create the test case for those scenarios and finally automate them to run i
 
 
 
-# 2 Challenge Description
+#  Challenge 2 Description
 Use your preferred API testing tool to build up your API testing
 
 
