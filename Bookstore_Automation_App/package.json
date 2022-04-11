@@ -1,0 +1,15 @@
+{
+  "name": "bookstore_automation_app",
+  "version": "1.0.0",
+  "description": "Automation app for bookstore app",
+  "main": "index.js",
+  "scripts": {
+    "test": "cypress open"
+  },
+  "author": "Hedmon Lopez",
+  "license": "MIT",
+  "devDependencies": {
+    "cypress": "^9.5.3",
+    "ng-recaptcha": "^7.0.1"
+  }
+}

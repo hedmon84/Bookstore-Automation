@@ -1,0 +1,7 @@
+{
+    "baseUrl": "https://demoqa.com/books",
+    "ignoreTestFiles": " **/2-advanced-examples/* " ,
+    "chromeWebSecurity": false ,
+    "viewportWidth": 1460,
+    "viewportHeight": 1000
+}
